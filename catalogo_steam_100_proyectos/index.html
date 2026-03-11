@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Catálogo STEAM - 131 Proyectos</title>
+<style>
+body{font-family:Arial;margin:0;background:#0f172a;color:white;}
+header{padding:30px;text-align:center;background:#020617;}
+.controls{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;padding:20px;background:#111827;}
+input,select{padding:10px;border-radius:6px;border:none;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;padding:30px;}
+.card{background:#1e293b;border-radius:12px;overflow:hidden;transition:0.3s;}
+.card:hover{transform:scale(1.05);}
+.card img{width:100%;height:160px;object-fit:cover;}
+.card-content{padding:15px;}
+.tag{font-size:12px;opacity:0.8;margin-bottom:5px;}
+.materials{font-size:12px;opacity:0.8;margin-top:10px;}
+footer{text-align:center;padding:20px;background:#020617;}
+
+
+.boton-catalogo a{
+background-color:#28a745;
+color:white;
+padding:12px 22px;
+border-radius:8px;
+text-decoration:none;
+font-weight:bold;
+display:inline-block;
+transition:0.3s;
+}
+.boton-catalogo a:hover{
+background-color:#218838;
+transform:scale(1.05);
+}
+
+</style>
+</head>
+<body>
+<header>
+<div style="background-color: white; padding: 8px;">
+		<img src="imagenes/logo.png" width="450">
+</div>
+<div class="boton-catalogo" align="Left">
+	<a href="/Proyectos_Steam/presentacion_proyectos_steam.html">
+		Regresar
+	</a>
+</div>
+<h1>🚀 Catálogo STEAM - 131 Proyectos</h1>
+<p>A continuación encontraras algunas propuestas de proyectos</p>
+</header>
+<div class="controls">
+<input type="text" id="search" placeholder="Buscar proyecto">
+<select id="category">
+<option value="">Todas las categorías</option>
+<option>Robótica</option><option>IoT</option><option>Medio Ambiente</option><option>Energía</option><option>Smart City</option><option>Datos</option><option>Domótica</option><option>Apps</option><option>IA</option><option>Ciencias de la Salud</option>
+</select>
+<select id="difficulty">
+<option value="">Todas las dificultades</option>
+<option>Básico</option>
+<option>Intermedio</option>
+<option>Avanzado</option>
+</select>
+</div>
+<div class="grid" id="grid"></div>
+
+<div class="boton-catalogo" align="Left">
+	<a href="/Proyectos_Steam/presentacion_proyectos_steam.html">
+		Regresar
+	</a>
+</div>
+
+<footer>Catálogo interactivo de proyectos | STEAM</footer>
+<script>
+const projects = [
+{"name": "Robot Seguidor de Línea Inteligente", "category": "Smart City", "difficulty": "Intermedio", "materials": "Sensores, Panel solar, Servomotores, Python, Protoboard", "image": "imagenes/proyecto_001.svg"}, 
+{"name": "Robot Evita Obstáculos Autónomo", "category": "Energía", "difficulty": "Avanzado", "materials": "ESP32, Python, Sensores, Cables jumper, App móvil", "image": "imagenes/proyecto_002.svg"}, 
+{"name": "Robot Recolector de Basura Urbana", "category": "IA", "difficulty": "Básico", "materials": "Sensor de temperatura, Python, App móvil, LEDs, Sensor de humedad", "image": "imagenes/proyecto_003.svg"}, 
+{"name": "Brazo Robótico Clasificador", "category": "Robótica", "difficulty": "Básico", "materials": "Batería, Sensor de temperatura, Arduino, ESP32, Protoboard", "image": "imagenes/proyecto_004.svg"}, 
+{"name": "Robot Agricultor Automatizado", "category": "Robótica", "difficulty": "Básico", "materials": "Batería, Arduino, Impresión 3D, Python, ESP32", "image": "imagenes/proyecto_005.svg"}, 
+{"name": "Robot Mensajero Escolar", "category": "IA", "difficulty": "Básico", "materials": "Panel solar, Impresión 3D, LEDs, Servomotores, Buzzer", "image": "imagenes/proyecto_006.svg"}, 
+{"name": "Robot Futbolista Autónomo", "category": "Apps", "difficulty": "Básico", "materials": "Sensor de temperatura, Servomotores, Batería, Sensores, App móvil", "image": "imagenes/proyecto_007.svg"}, 
+{"name": "Robot Clasificador de Residuos", "category": "IA", "difficulty": "Intermedio", "materials": "Protoboard, Sensor de temperatura, Arduino, Pantalla LCD, Panel solar", "image": "imagenes/proyecto_008.svg"}, 
+{"name": "Robot Limpia Playa", "category": "Energía", "difficulty": "Básico", "materials": "ESP32, Panel solar, Módulo WiFi, Sensor de temperatura, Pantalla LCD", "image": "imagenes/proyecto_009.svg"}, 
+{"name": "Robot Explorador Bluetooth", "category": "Energía", "difficulty": "Avanzado", "materials": "Panel solar, Pantalla LCD, Cables jumper, Impresión 3D, Batería", "image": "imagenes/proyecto_010.svg"}, 
+{"name": "Detector Inteligente de Fugas de Agua", "category": "IA", "difficulty": "Intermedio", "materials": "Pantalla LCD, Impresión 3D, Protoboard, Sensor de temperatura, Python", "image": "imagenes/proyecto_011.svg"}, 
+{"name": "Huerto Automatizado con Sensores", "category": "Domótica", "difficulty": "Básico", "materials": "Python, Buzzer, Batería, Panel solar, Módulo WiFi", "image": "imagenes/proyecto_012.svg"}, 
+{"name": "Medidor de Calidad del Aire Escolar", "category": "IoT", "difficulty": "Básico", "materials": "LEDs, Batería, Sensor de humedad, Arduino, Protoboard", "image": "imagenes/proyecto_013.svg"}, 
+{"name": "Captador Inteligente de Agua de Lluvia", "category": "Datos", "difficulty": "Intermedio", "materials": "Protoboard, Arduino, App móvil, Módulo WiFi, Servomotores", "image": "imagenes/proyecto_014.svg"}, 
+{"name": "Monitor de CO2 en el Aula", "category": "Datos", "difficulty": "Intermedio", "materials": "LEDs, Cables jumper, App móvil, Módulo WiFi, Impresión 3D", "image": "imagenes/proyecto_015.svg"}, 
+{"name": "Sensor Digital de Calidad del Agua", "category": "Datos", "difficulty": "Avanzado", "materials": "Batería, Sensor de humedad, Python, Protoboard, Sensor ultrasónico", "image": "imagenes/proyecto_016.svg"}, 
+{"name": "Sistema de Riego Automatizado", "category": "IA", "difficulty": "Avanzado", "materials": "Sensor de temperatura, Módulo WiFi, Python, Pantalla LCD, Panel solar", "image": "imagenes/proyecto_017.svg"}, 
+{"name": "Mapa Digital de Contaminación Urbana", "category": "Domótica", "difficulty": "Básico", "materials": "Impresión 3D, Buzzer, Cables jumper, Sensor de humedad, Sensor de temperatura", "image": "imagenes/proyecto_018.svg"}, 
+{"name": "Monitor de Energía del Aula", "category": "Apps", "difficulty": "Intermedio", "materials": "Batería, Motores, Panel solar, Sensores, Sensor de humedad", "image": "imagenes/proyecto_019.svg"}, 
+{"name": "Lámpara Solar Inteligente", "category": "Medio Ambiente", "difficulty": "Avanzado", "materials": "App móvil, ESP32, Cables jumper, Buzzer, Impresión 3D", "image": "imagenes/proyecto_020.svg"}, 
+{"name": "Cargador Solar para Dispositivos", "category": "Apps", "difficulty": "Básico", "materials": "Panel solar, Protoboard, Cables jumper, Servomotores, Buzzer", "image": "imagenes/proyecto_021.svg"}, 
+{"name": "Ventilador Solar Autónomo", "category": "IA", "difficulty": "Intermedio", "materials": "Buzzer, Arduino, App móvil, Módulo WiFi, Python", "image": "imagenes/proyecto_022.svg"}, 
+{"name": "Sistema Inteligente de Gestión Energética", "category": "IoT", "difficulty": "Avanzado", "materials": "Servomotores, Panel solar, Sensores, App móvil, Módulo WiFi", "image": "imagenes/proyecto_023.svg"}, 
+{"name": "Semáforo Inteligente con Sensores", "category": "IA", "difficulty": "Intermedio", "materials": "Panel solar, Sensor de temperatura, Buzzer, Batería, Pantalla LCD", "image": "imagenes/proyecto_024.svg"}, 
+{"name": "Estacionamiento Inteligente para Bicicletas", "category": "IoT", "difficulty": "Intermedio", "materials": "Pantalla LCD, ESP32, Protoboard, LEDs, Impresión 3D", "image": "imagenes/proyecto_025.svg"}, 
+{"name": "Detector de Ruido en el Aula", "category": "Datos", "difficulty": "Avanzado", "materials": "Servomotores, Módulo WiFi, Sensor ultrasónico, Pantalla LCD, LEDs", "image": "imagenes/proyecto_026.svg"}, 
+{"name": "Sistema de Bicicletas Inteligentes", "category": "IoT", "difficulty": "Básico", "materials": "Arduino, Batería, App móvil, Motores, Panel solar", "image": "imagenes/proyecto_027.svg"}, 
+{"name": "Sistema Escolar de Alerta Sísmica", "category": "Datos", "difficulty": "Intermedio", "materials": "Panel solar, App móvil, Protoboard, Servomotores, Batería", "image": "imagenes/proyecto_028.svg"}, 
+{"name": "Monitor Climático Escolar", "category": "Smart City", "difficulty": "Avanzado", "materials": "Sensor de humedad, Buzzer, Sensores, ESP32, Sensor ultrasónico", "image": "imagenes/proyecto_029.svg"}, 
+{"name": "Contador Inteligente de Personas", "category": "Apps", "difficulty": "Básico", "materials": "Servomotores, Sensor de temperatura, Panel solar, App móvil, Python", "image": "imagenes/proyecto_030.svg"}, 
+{"name": "Estación Meteorológica Digital", "category": "IA", "difficulty": "Básico", "materials": "Cables jumper, Sensor ultrasónico, Sensor de temperatura, Sensor de humedad, Panel solar", "image": "imagenes/proyecto_031.svg"}, 
+{"name": "Calculadora de Huella de Carbono", "category": "Smart City", "difficulty": "Básico", "materials": "Buzzer, Motores, Servomotores, Protoboard, Arduino", "image": "imagenes/proyecto_032.svg"}, 
+{"name": "Visualizador de Datos Ambientales", "category": "IA", "difficulty": "Intermedio", "materials": "Pantalla LCD, Buzzer, Python, Batería, Impresión 3D", "image": "imagenes/proyecto_033.svg"}, 
+{"name": "Casa Inteligente Escolar", "category": "Energía", "difficulty": "Intermedio", "materials": "Protoboard, Pantalla LCD, Sensores, Servomotores, Impresión 3D", "image": "imagenes/proyecto_034.svg"}, 
+{"name": "Control de Acceso RFID Escolar", "category": "Apps", "difficulty": "Básico", "materials": "Sensor de temperatura, Módulo WiFi, Panel solar, Sensor ultrasónico, Servomotores", "image": "imagenes/proyecto_035.svg"}, 
+{"name": "Sistema de Iluminación Automática", "category": "Medio Ambiente", "difficulty": "Básico", "materials": "Python, Impresión 3D, Panel solar, Pantalla LCD, Servomotores", "image": "imagenes/proyecto_036.svg"}, 
+{"name": "Detector de Movimiento Inteligente", "category": "Robótica", "difficulty": "Básico", "materials": "Cables jumper, LEDs, ESP32, Pantalla LCD, App móvil", "image": "imagenes/proyecto_037.svg"}, 
+{"name": "Sistema Antirrobo para Mochilas", "category": "Smart City", "difficulty": "Avanzado", "materials": "Panel solar, Sensor de humedad, Buzzer, Protoboard, Servomotores", "image": "imagenes/proyecto_038.svg"}, 
+{"name": "Puertas Automáticas con Sensores", "category": "Domótica", "difficulty": "Avanzado", "materials": "Buzzer, Sensor de temperatura, Módulo WiFi, App móvil, Servomotores", "image": "imagenes/proyecto_039.svg"}, 
+{"name": "Control de Luces por Comando de Voz", "category": "Robótica", "difficulty": "Básico", "materials": "ESP32, Batería, Pantalla LCD, Protoboard, Sensores", "image": "imagenes/proyecto_040.svg"}, 
+{"name": "App Educativa para Reciclaje", "category": "Domótica", "difficulty": "Avanzado", "materials": "Sensor de temperatura, Servomotores, Panel solar, Pantalla LCD, Motores", "image": "imagenes/proyecto_041.svg"}, 
+{"name": "App de Organización Escolar", "category": "IoT", "difficulty": "Intermedio", "materials": "Sensor ultrasónico, Arduino, Buzzer, Impresión 3D, Sensores", "image": "imagenes/proyecto_042.svg"}, 
+{"name": "App de Transporte Escolar", "category": "Robótica", "difficulty": "Básico", "materials": "Protoboard, Sensores, Batería, Python, Sensor de humedad", "image": "imagenes/proyecto_043.svg"}, 
+{"name": "App para Monitoreo de Plantas", "category": "Smart City", "difficulty": "Avanzado", "materials": "Cables jumper, Python, Sensor ultrasónico, Panel solar, ESP32", "image": "imagenes/proyecto_044.svg"}, 
+{"name": "App de Ahorro Energético", "category": "Domótica", "difficulty": "Intermedio", "materials": "Python, Sensores, Panel solar, Buzzer, Sensor ultrasónico", "image": "imagenes/proyecto_045.svg"}, 
+{"name": "App para Reportar Problemas Urbanos", "category": "Domótica", "difficulty": "Avanzado", "materials": "Sensores, ESP32, Sensor de humedad, Protoboard, Sensor de temperatura", "image": "imagenes/proyecto_046.svg"}, 
+{"name": "Simulador Digital de Ciudad Sostenible", "category": "IoT", "difficulty": "Básico", "materials": "Protoboard, Sensores, Buzzer, Módulo WiFi, Cables jumper", "image": "imagenes/proyecto_047.svg"}, 
+{"name": "IA para Clasificación de Residuos", "category": "Energía", "difficulty": "Avanzado", "materials": "LEDs, Sensor de temperatura, Python, Servomotores, Pantalla LCD", "image": "imagenes/proyecto_048.svg"}, 
+{"name": "IA para Identificación de Plantas", "category": "Domótica", "difficulty": "Básico", "materials": "Sensor de humedad, Python, Protoboard, Sensores, Sensor ultrasónico", "image": "imagenes/proyecto_049.svg"}, 
+{"name": "IA para Detección de Basura", "category": "IA", "difficulty": "Básico", "materials": "Batería, Python, Motores, Sensores, Sensor de temperatura", "image": "imagenes/proyecto_050.svg"}, 
+{"name": "Sistema IoT de Monitoreo Ambiental", "category": "Energía", "difficulty": "Básico", "materials": "Protoboard, Sensor de humedad, LEDs, Motores, Buzzer", "image": "imagenes/proyecto_051.svg"}, 
+{"name": "Sensor Inteligente de Basura Llena", "category": "Smart City", "difficulty": "Intermedio", "materials": "Python, LEDs, Sensor de humedad, Impresión 3D, Módulo WiFi", "image": "imagenes/proyecto_052.svg"}, 
+{"name": "Sistema de Cultivo Hidropónico", "category": "Medio Ambiente", "difficulty": "Básico", "materials": "Módulo WiFi, Buzzer, Batería, Pantalla LCD, App móvil", "image": "imagenes/proyecto_053.svg"}, 
+{"name": "Detector de Caídas para Adultos Mayores", "category": "Robótica", "difficulty": "Avanzado", "materials": "Sensor ultrasónico, Panel solar, Servomotores, Cables jumper, Sensores", "image": "imagenes/proyecto_054.svg"}, 
+{"name": "Robot Detector de Incendios", "category": "Medio Ambiente", "difficulty": "Básico", "materials": "Sensor ultrasónico, Cables jumper, Python, Panel solar, LEDs", "image": "imagenes/proyecto_055.svg"}, 
+{"name": "Sistema Inteligente de Control de Temperatura", "category": "IA", "difficulty": "Intermedio", "materials": "App móvil, Pantalla LCD, Sensores, Motores, Sensor de humedad", "image": "imagenes/proyecto_056.svg"}, 
+{"name": "Panel Solar Portátil Educativo", "category": "Robótica", "difficulty": "Básico", "materials": "Servomotores, Python, App móvil, Motores, Protoboard", "image": "imagenes/proyecto_057.svg"}, 
+{"name": "Sistema de Captación de Energía Solar", "category": "IoT", "difficulty": "Básico", "materials": "Módulo WiFi, Cables jumper, Python, Motores, Protoboard", "image": "imagenes/proyecto_058.svg"}, 
+{"name": "Control Inteligente de Ventilación", "category": "Smart City", "difficulty": "Intermedio", "materials": "Sensores, LEDs, Pantalla LCD, Motores, Módulo WiFi", "image": "imagenes/proyecto_059.svg"}, 
+{"name": "App de Monitoreo de Consumo de Agua", "category": "Medio Ambiente", "difficulty": "Avanzado", "materials": "Cables jumper, Módulo WiFi, Protoboard, Panel solar, Python", "image": "imagenes/proyecto_060.svg"}, 
+{"name": "Simulador de Cambio Climático", "category": "IA", "difficulty": "Básico", "materials": "Módulo WiFi, Sensor de humedad, App móvil, Arduino, Sensor de temperatura", "image": "imagenes/proyecto_061.svg"}, 
+{"name": "Red de Sensores Ambientales", "category": "Smart City", "difficulty": "Avanzado", "materials": "Cables jumper, Sensor de humedad, Python, Pantalla LCD, Sensor ultrasónico", "image": "imagenes/proyecto_062.svg"}, 
+{"name": "Robot Detector de Metales", "category": "IA", "difficulty": "Intermedio", "materials": "App móvil, Sensor de temperatura, Python, Sensores, Servomotores", "image": "imagenes/proyecto_063.svg"}, 
+{"name": "Robot Vigilante Escolar", "category": "Robótica", "difficulty": "Avanzado", "materials": "Módulo WiFi, Motores, ESP32, Protoboard, App móvil", "image": "imagenes/proyecto_064.svg"}, 
+{"name": "Sistema Inteligente de Compostaje", "category": "Domótica", "difficulty": "Intermedio", "materials": "Sensor de humedad, ESP32, Panel solar, LEDs, Impresión 3D", "image": "imagenes/proyecto_065.svg"}, 
+{"name": "Detector de Calidad del Suelo", "category": "Domótica", "difficulty": "Básico", "materials": "ESP32, Pantalla LCD, Sensores, Impresión 3D, Sensor de humedad", "image": "imagenes/proyecto_066.svg"}, 
+{"name": "Robot Plantador de Semillas", "category": "Energía", "difficulty": "Básico", "materials": "Cables jumper, LEDs, Sensor de temperatura, Módulo WiFi, Batería", "image": "imagenes/proyecto_067.svg"}, 
+{"name": "Robot Detector de Obstáculos con IA", "category": "IA", "difficulty": "Intermedio", "materials": "LEDs, Sensor de temperatura, Servomotores, ESP32, Sensores", "image": "imagenes/proyecto_068.svg"}, 
+{"name": "Medidor Inteligente de Iluminación", "category": "Datos", "difficulty": "Avanzado", "materials": "Sensor de humedad, Sensor ultrasónico, Sensores, Protoboard, App móvil", "image": "imagenes/proyecto_069.svg"}, 
+{"name": "Robot Clasificador de Colores", "category": "Datos", "difficulty": "Avanzado", "materials": "App móvil, Python, Sensor ultrasónico, Motores, ESP32", "image": "imagenes/proyecto_070.svg"}, 
+{"name": "Sistema de Alerta de Inundaciones", "category": "Medio Ambiente", "difficulty": "Básico", "materials": "Motores, Impresión 3D, Servomotores, Sensor de humedad, Python", "image": "imagenes/proyecto_071.svg"}, 
+{"name": "Simulador de Energías Renovables", "category": "Medio Ambiente", "difficulty": "Básico", "materials": "Batería, ESP32, Cables jumper, LEDs, Sensores", "image": "imagenes/proyecto_072.svg"}, 
+{"name": "App para Gestión de Proyectos Escolares", "category": "Domótica", "difficulty": "Intermedio", "materials": "Pantalla LCD, Servomotores, Sensor de temperatura, Protoboard, Motores", "image": "imagenes/proyecto_073.svg"}, 
+{"name": "Sensor de Temperatura IoT", "category": "Robótica", "difficulty": "Intermedio", "materials": "Sensor de temperatura, Buzzer, App móvil, Sensor de humedad, LEDs", "image": "imagenes/proyecto_074.svg"}, 
+{"name": "Robot Rastreador de Objetos", "category": "Smart City", "difficulty": "Básico", "materials": "Pantalla LCD, Módulo WiFi, App móvil, Python, Sensor ultrasónico", "image": "imagenes/proyecto_075.svg"}, 
+{"name": "Sistema de Seguridad Domótica", "category": "Datos", "difficulty": "Básico", "materials": "Sensor de temperatura, LEDs, Panel solar, Servomotores, Sensor de humedad", "image": "imagenes/proyecto_076.svg"}, 
+{"name": "Robot Transportador de Objetos", "category": "Medio Ambiente", "difficulty": "Avanzado", "materials": "ESP32, Pantalla LCD, App móvil, Protoboard, Sensores", "image": "imagenes/proyecto_077.svg"}, 
+{"name": "Medidor Inteligente de Humedad", "category": "IoT", "difficulty": "Básico", "materials": "Protoboard, Panel solar, Arduino, Sensores, Impresión 3D", "image": "imagenes/proyecto_078.svg"}, 
+{"name": "App de Control de Asistencia Escolar", "category": "Datos", "difficulty": "Intermedio", "materials": "Sensor de temperatura, App móvil, LEDs, ESP32, Python", "image": "imagenes/proyecto_079.svg"}, 
+{"name": "Robot Detector de Líneas Múltiples", "category": "Medio Ambiente", "difficulty": "Básico", "materials": "Impresión 3D, App móvil, Python, Protoboard, Panel solar", "image": "imagenes/proyecto_080.svg"}, 
+{"name": "Control Automático de Invernadero", "category": "Datos", "difficulty": "Básico", "materials": "Protoboard, Cables jumper, Arduino, Sensor de temperatura, ESP32", "image": "imagenes/proyecto_081.svg"}, 
+{"name": "Robot Explorador con Cámara", "category": "Medio Ambiente", "difficulty": "Básico", "materials": "Sensores, Buzzer, Sensor de temperatura, Panel solar, Módulo WiFi", "image": "imagenes/proyecto_082.svg"}, 
+{"name": "Sistema Inteligente de Reciclaje Escolar", "category": "Smart City", "difficulty": "Básico", "materials": "Python, Sensor ultrasónico, Servomotores, Panel solar, Motores", "image": "imagenes/proyecto_083.svg"}, 
+{"name": "Robot Detector de Gas", "category": "IoT", "difficulty": "Intermedio", "materials": "Protoboard, LEDs, Sensor de temperatura, Motores, Panel solar", "image": "imagenes/proyecto_084.svg"}, 
+{"name": "Plataforma de Monitoreo Ambiental", "category": "Robótica", "difficulty": "Avanzado", "materials": "Impresión 3D, Pantalla LCD, LEDs, Panel solar, Sensor de temperatura", "image": "imagenes/proyecto_085.svg"}, 
+{"name": "Robot Seguidor de Luz", "category": "IA", "difficulty": "Avanzado", "materials": "Arduino, Módulo WiFi, LEDs, Sensor de humedad, Servomotores", "image": "imagenes/proyecto_086.svg"}, 
+{"name": "Simulador de Ecosistemas", "category": "Apps", "difficulty": "Avanzado", "materials": "ESP32, Sensor de temperatura, Sensor ultrasónico, Sensores, Python", "image": "imagenes/proyecto_087.svg"}, 
+{"name": "Control Inteligente de Riego por Clima", "category": "Robótica", "difficulty": "Intermedio", "materials": "Servomotores, Impresión 3D, App móvil, Arduino, Pantalla LCD", "image": "imagenes/proyecto_088.svg"}, 
+{"name": "Robot Detector de Sonido", "category": "Datos", "difficulty": "Básico", "materials": "Arduino, Batería, Python, Sensor de humedad, Panel solar", "image": "imagenes/proyecto_089.svg"}, 
+{"name": "Sensor Inteligente de Tráfico", "category": "Datos", "difficulty": "Avanzado", "materials": "Sensor de humedad, Pantalla LCD, Panel solar, LEDs, ESP32", "image": "imagenes/proyecto_090.svg"}, 
+{"name": "Robot Detector de Temperatura", "category": "IoT", "difficulty": "Básico", "materials": "Módulo WiFi, Sensor de temperatura, Protoboard, Sensores, Servomotores", "image": "imagenes/proyecto_091.svg"}, 
+{"name": "App de Registro de Experimentos", "category": "IoT", "difficulty": "Básico", "materials": "Python, Arduino, App móvil, Sensores, Motores", "image": "imagenes/proyecto_092.svg"}, 
+{"name": "Robot Detector de Objetos con Cámara", "category": "IoT", "difficulty": "Avanzado", "materials": "Pantalla LCD, Cables jumper, ESP32, Buzzer, Motores", "image": "imagenes/proyecto_093.svg"}, 
+{"name": "Red IoT para Monitoreo Escolar", "category": "Domótica", "difficulty": "Básico", "materials": "Batería, LEDs, Sensor ultrasónico, ESP32, Buzzer", "image": "imagenes/proyecto_094.svg"}, 
+{"name": "Robot Detector de Colisiones", "category": "Robótica", "difficulty": "Intermedio", "materials": "LEDs, Sensores, Sensor ultrasónico, Motores, Cables jumper", "image": "imagenes/proyecto_095.svg"}, 
+{"name": "Sistema Inteligente de Alarmas", "category": "Datos", "difficulty": "Básico", "materials": "ESP32, Batería, Impresión 3D, Sensores, App móvil", "image": "imagenes/proyecto_096.svg"}, 
+{"name": "Simulador de Consumo Energético", "category": "Smart City", "difficulty": "Intermedio", "materials": "LEDs, Batería, Python, Arduino, Motores", "image": "imagenes/proyecto_097.svg"}, 
+{"name": "Robot Detector de Distancia", "category": "Robótica", "difficulty": "Avanzado", "materials": "Pantalla LCD, Cables jumper, Módulo WiFi, Motores, Python", "image": "imagenes/proyecto_098.svg"}, 
+{"name": "Panel Educativo de Energía Renovable", "category": "Energía", "difficulty": "Básico", "materials": "Cables jumper, ESP32, Motores, Python, Sensores", "image": "imagenes/proyecto_099.svg"}, 
+{"name": "Robot Monitor de Ambiente Escolar", "category": "Energía", "difficulty": "Avanzado", "materials": "Servomotores, ESP32, Módulo WiFi, Impresión 3D, Panel solar", "image": "imagenes/proyecto_100.svg"}, 
+{"name": "App de Control de Laboratorio Escolar", "category": "Domótica", "difficulty": "Intermedio", "materials": "Módulo WiFi, App móvil, Sensor de temperatura, LEDs, Panel solar", "image": "imagenes/proyecto_101.svg"},
+{"name":"Monitor de frecuencia cardíaca con Arduino","category":"Ciencias de la Salud","difficulty":"Intermedio","materials":"Arduino, sensor de pulso, pantalla LCD, cables","image":"imagenes/proyecto_102.svg"},
+{"name":"Sistema de alerta de ritmo cardíaco","category":"Ciencias de la Salud","difficulty":"Intermedio","materials":"Arduino, sensor cardíaco, buzzer, LEDs","image":"imagenes/proyecto_103.svg"},
+{"name":"Medidor digital de estrés","category":"Ciencias de la Salud","difficulty":"Avanzado","materials":"Sensor cardíaco, Arduino, pantalla LCD","image":"imagenes/proyecto_104.svg"},
+{"name":"App de registro de signos vitales","category":"Ciencias de la Salud","difficulty":"Básico","materials":"App móvil, base de datos","image":"imagenes/proyecto_105.svg"},
+{"name":"Monitor de calidad del sueño","category":"Ciencias de la Salud","difficulty":"Avanzado","materials":"Arduino, sensor movimiento","image":"imagenes/proyecto_106.svg"},
+{"name":"App de registro del estado de ánimo","category":"Ciencias de la Salud","difficulty":"Básico","materials":"App móvil","image":"imagenes/proyecto_107.svg"},
+{"name":"Mapa de estrés escolar","category":"Ciencias de la Salud","difficulty":"Básico","materials":"Encuestas, análisis de datos","image":"imagenes/proyecto_108.svg"},
+{"name":"App de pausas activas","category":"Ciencias de la Salud","difficulty":"Básico","materials":"App móvil","image":"imagenes/proyecto_109.svg"},
+{"name":"Análisis del uso del celular y sueño","category":"Ciencias de la Salud","difficulty":"Básico","materials":"Encuestas, análisis de datos","image":"imagenes/proyecto_110.svg"},
+{"name":"Simulador de propagación de virus","category":"Ciencias de la Salud","difficulty":"Intermedio","materials":"Python, simulación","image":"imagenes/proyecto_111.svg"},
+{"name":"Sistema recordatorio lavado de manos","category":"Ciencias de la Salud","difficulty":"Intermedio","materials":"Arduino, sensor proximidad, buzzer","image":"imagenes/proyecto_112.svg"},
+{"name":"Experimento crecimiento bacteriano","category":"Ciencias de la Salud","difficulty":"Básico","materials":"Placas Petri, microscopio","image":"imagenes/proyecto_113.svg"},
+{"name":"Detector de temperatura sin contacto","category":"Ciencias de la Salud","difficulty":"Intermedio","materials":"Sensor infrarrojo, Arduino","image":"imagenes/proyecto_114.svg"},
+{"name":"App de seguimiento de síntomas","category":"Ciencias de la Salud","difficulty":"Básico","materials":"App móvil","image":"imagenes/proyecto_115.svg"},
+{"name":"Analizador nutricional de alimentos","category":"Ciencias de la Salud","difficulty":"Básico","materials":"Base de datos alimentos","image":"imagenes/proyecto_116.svg"},
+{"name":"Comparación nutricional de alimentos escolares","category":"Ciencias de la Salud","difficulty":"Básico","materials":"Datos nutricionales","image":"imagenes/proyecto_117.svg"},
+{"name":"Sistema de recomendación de dieta","category":"Ciencias de la Salud","difficulty":"Intermedio","materials":"Python, base de datos","image":"imagenes/proyecto_118.svg"},
+{"name":"Visualizador de calorías diarias","category":"Ciencias de la Salud","difficulty":"Básico","materials":"App o Excel","image":"imagenes/proyecto_119.svg"},
+{"name":"Estudio del contenido de azúcar en bebidas","category":"Ciencias de la Salud","difficulty":"Básico","materials":"laboratorio, medición química","image":"imagenes/proyecto_120.svg"},
+{"name":"Contador de pasos con acelerómetro","category":"Ciencias de la Salud","difficulty":"Intermedio","materials":"Arduino, acelerómetro","image":"imagenes/proyecto_121.svg"},
+{"name":"Sistema de monitoreo de actividad física","category":"Ciencias de la Salud","difficulty":"Intermedio","materials":"sensor movimiento, Arduino","image":"imagenes/proyecto_122.svg"},
+{"name":"App para registrar rutinas de ejercicio","category":"Ciencias de la Salud","difficulty":"Básico","materials":"App móvil","image":"imagenes/proyecto_123.svg"},
+{"name":"Comparación de frecuencia cardíaca antes y después del ejercicio","category":"Ciencias de la Salud","difficulty":"Básico","materials":"sensor cardíaco","image":"imagenes/proyecto_124.svg"},
+{"name":"Mapa de actividad física escolar","category":"Ciencias de la Salud","difficulty":"Básico","materials":"encuestas, análisis datos","image":"imagenes/proyecto_125.svg"},
+{"name":"Medidor de calidad del aire en el aula","category":"Ciencias de la Salud","difficulty":"Intermedio","materials":"sensor MQ135, Arduino","image":"imagenes/proyecto_126.svg"},
+{"name":"Impacto del ruido en la concentración","category":"Ciencias de la Salud","difficulty":"Básico","materials":"sensor sonido","image":"imagenes/proyecto_127.svg"},
+{"name":"Sensor de confort térmico","category":"Ciencias de la Salud","difficulty":"Intermedio","materials":"sensor temperatura humedad","image":"imagenes/proyecto_128.svg"},
+{"name":"Mapa de contaminación escolar","category":"Ciencias de la Salud","difficulty":"Básico","materials":"datos ambientales","image":"imagenes/proyecto_129.svg"},
+{"name":"Análisis de iluminación y salud visual","category":"Ciencias de la Salud","difficulty":"Básico","materials":"sensor luz","image":"imagenes/proyecto_130.svg"},
+{"name":"Sistema de hidratación inteligente","category":"Ciencias de la Salud","difficulty":"Intermedio","materials":"Arduino, sensores","image":"imagenes/proyecto_131.svg"}];
+
+const grid = document.getElementById("grid");
+function render(list){
+grid.innerHTML="";
+list.forEach(p=>{
+const card=document.createElement("div");
+card.className="card";
+card.innerHTML=`<div class="card-content"><div class="tag">${p.category} | ${p.difficulty}</div><h3>${p.name}</h3><div class="materials"><b>Materiales:</b> ${p.materials}</div></div>`;
+grid.appendChild(card);
+});
+}
+render(projects);
+function filter(){
+const s=document.getElementById("search").value.toLowerCase();
+const c=document.getElementById("category").value;
+const d=document.getElementById("difficulty").value;
+const filtered=projects.filter(p=>(p.name.toLowerCase().includes(s)) && (!c || p.category===c) && (!d || p.difficulty===d));
+render(filtered);
+}
+document.getElementById("search").addEventListener("input",filter);
+document.getElementById("category").addEventListener("change",filter);
+document.getElementById("difficulty").addEventListener("change",filter);
+</script>
+</body>
+</html>
